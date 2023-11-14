@@ -5,7 +5,7 @@ from send_mail import send_mail
 
 load_dotenv()
 
-news_about = input("enter keyword to search :")
+news_about = "best stocks to buy in india"
 API_KEY = os.getenv("NEWS_API_Key")
 url = (f"https://newsapi.org/v2/everything?q={news_about}&"
        f"from=2023-11-1&"
@@ -18,7 +18,8 @@ content = response.json()
 articles = content['articles']
 body = ''
 for article in articles[:20]:
-    body += (article['title'] + '\n' + article['description'] +
+    if article['title'] is not None:
+        body += (article['title'] + '\n' + article['description'] +
              '\n' + article['url'] + 2*'\n')
 
 message = f"""Subject:{news_about} news articles\n
